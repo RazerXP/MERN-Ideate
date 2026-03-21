@@ -2,6 +2,10 @@
 
 A full-stack notes application built with the MERN stack (MongoDB, Express.js, React, Node.js). This project allows users to create, read, update, and delete notes with a clean, responsive interface.
 
+## 🚀 Live Demo
+
+The application is deployed and live at: [https://ideate-f3hw.onrender.com/](https://ideate-f3hw.onrender.com/)
+
 ## Features
 
 - **Create Notes**: Add new notes with title and content
