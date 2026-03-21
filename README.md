@@ -82,13 +82,28 @@ Before running this application, make sure you have the following installed:
 
 ## Usage
 
+### Development
+
+1. **Start both backend and frontend servers**
+   ```bash
+   npm run dev
+   ```
+
+2. **Open your browser**
+
+   Navigate to `http://localhost:5173` to access the application.
+
+### Manual Setup (Alternative)
+
+If you prefer to run services separately:
+
 1. **Start the backend server**
    ```bash
    cd backend
    npm run dev
    ```
 
-2. **Start the frontend development server**
+2. **Start the frontend development server** (in a new terminal)
    ```bash
    cd frontend
    npm run dev
