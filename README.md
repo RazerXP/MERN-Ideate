@@ -1,6 +1,6 @@
 # MERN-Ideate
 
-A full-stack notes application built with the MERN stack (MongoDB, Express.js, React, Node.js). This project allows users to create, read, update, and delete notes with a clean, responsive interface.
+A full-stack notes application built with the MERN stack in TypeScript (MongoDB, Express.js, React, Node.js). This project allows users to create, read, update, and delete notes with a clean, responsive interface.
 
 ## 🚀 Live Demo
 
@@ -20,6 +20,7 @@ The application is deployed and live at: [https://ideate-f3hw.onrender.com/](htt
 
 ### Backend
 - **Node.js** - Runtime environment
+- **TypeScript** - Typed JavaScript for backend logic
 - **Express.js** - Web framework
 - **MongoDB** - NoSQL database
 - **Mongoose** - ODM for MongoDB
@@ -27,6 +28,7 @@ The application is deployed and live at: [https://ideate-f3hw.onrender.com/](htt
 - **CORS** - Cross-origin resource sharing
 
 ### Frontend
+- **TypeScript** - Typed JavaScript for frontend components and pages
 - **React** - UI library
 - **Vite** - Build tool and dev server
 - **React Router** - Client-side routing
@@ -41,6 +43,7 @@ The application is deployed and live at: [https://ideate-f3hw.onrender.com/](htt
 Before running this application, make sure you have the following installed:
 
 - **Node.js** (v16 or higher)
+- **TypeScript** (installed as dev dependency in each package)
 - **MongoDB** (local installation or MongoDB Atlas)
 - **Upstash Redis** account (for rate limiting)
 
@@ -152,26 +155,26 @@ MERN-Ideate/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   ├── db.js
-│   │   │   └── upstash.js
+│   │   │   ├── db.ts
+│   │   │   └── upstash.ts
 │   │   ├── controllers/
-│   │   │   └── notesController.js
+│   │   │   └── notesController.ts
 │   │   ├── middleware/
-│   │   │   └── rateLimiter.js
+│   │   │   └── rateLimiter.ts
 │   │   ├── models/
-│   │   │   └── Note.js
+│   │   │   └── Note.ts
 │   │   ├── routes/
-│   │   │   └── notesRoutes.js
-│   │   └── server.js
+│   │   │   └── notesRoutes.ts
+│   │   └── server.ts
 │   └── package.json
 ├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── NavBar.jsx
-│   │   │   ├── NoteCard.jsx
-│   │   │   ├── NotesNotFound.jsx
-│   │   │   └── RateLimitedUI.jsx
+│   │   │   ├── NavBar.tsx
+│   │   │   ├── NoteCard.tsx
+│   │   │   ├── NotesNotFound.tsx
+│   │   │   └── RateLimitedUI.tsx
 │   │   ├── lib/
 │   │   │   ├── axios.js
 │   │   │   └── utils.js

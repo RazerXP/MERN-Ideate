@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar.tsx'
 import toast from 'react-hot-toast'
 import api from '../lib/axios'
 
 const CreatePage = () => {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!title.trim() || !content.trim()) {
@@ -37,10 +37,10 @@ const CreatePage = () => {
     } catch (error) {
       console.error('Create note error:', error)
 
-      if (error?.response?.status === 429) {
+      if ((error as any)?.response?.status === 429) {
         toast.error('Too many requests. Please try again later.')
       } else {
-        toast.error(error?.response?.data?.message || 'Unknown error creating note')
+        toast.error((error as any)?.response?.data?.message || 'Unknown error creating note')
       }
     } finally {
       setIsSubmitting(false)
