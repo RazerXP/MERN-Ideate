@@ -1,6 +1,7 @@
 import Note from "../models/Note.js";
+import { Request, Response } from "express";
 
-export const getNotes = async (req, res) => {
+export const getNotes = async (req : Request, res : Response) => {
     try {
         const notes = await Note.find().sort({ createdAt:-1 });
         res.status(200).json({ status: 1, data: notes });
@@ -10,7 +11,7 @@ export const getNotes = async (req, res) => {
     }
 }
 
-export const getNote = async (req, res) => {
+export const getNote = async (req : Request, res : Response) => {
     try {
         const note = await Note.findById(req.params.id);
         if(!note) return res.status(404).json({ status: 0, message: "Note not found" });
@@ -21,10 +22,10 @@ export const getNote = async (req, res) => {
     }
 }
 
-export const postNote = async (req, res) => {
+export const postNote = async (req : Request, res : Response) => {
     try {
         const { title,content } = req.body;
-        const newNote = new Note({title, content});
+        const newNote = new Note({ title, content });
 
         const note = await newNote.save();
         res.status(201).json({ status: 1, message: "Note created successfully", data: note })
@@ -34,7 +35,7 @@ export const postNote = async (req, res) => {
     }
 }
 
-export const updateNote = async (req, res) => {
+export const updateNote = async (req : Request, res : Response) => {
     try {
         const { title,content } = req.body;
         const note = await Note.findByIdAndUpdate(req.params.id, {title,content});
@@ -46,7 +47,7 @@ export const updateNote = async (req, res) => {
     }
 }
 
-export const delNote = async (req, res) => {
+export const delNote = async (req : Request, res : Response) => {
     try {
         const note = await Note.findByIdAndDelete(req.params.id);
         if(!note) return res.status(404).json({ status: 0, message: "Note not found" });

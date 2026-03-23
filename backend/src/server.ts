@@ -14,7 +14,7 @@ const __dirname = path.resolve();
 if (process.env.NODE_ENV !== "production") {
     app.use(
         cors({
-            origin: "http://localhost:5174",
+            origin: "http://localhost:5173",
         })
     );
 }
