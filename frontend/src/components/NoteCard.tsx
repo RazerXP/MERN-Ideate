@@ -1,11 +1,17 @@
 import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router";
-import { formatDate } from "../lib/utils";
-import api from "../lib/axios";
+import { formatDate } from "../lib/utils.ts";
+import api from "../lib/axios.ts";
 import toast from "react-hot-toast";
+import { Note } from "../types/note";
 
-const NoteCard = ({ note, setNotes }) => {
-  const handleDelete = async (e, id) => {
+interface NoteCardProps {
+  note: Note;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+}
+
+const NoteCard = ({ note, setNotes }: NoteCardProps) => {
+  const handleDelete = async (e: React.MouseEvent, id: string) => {
     e.preventDefault(); // get rid of the navigation behaviour
 
     if (!window.confirm("Are you sure you want to delete this note?")) return;
@@ -28,7 +34,7 @@ const NoteCard = ({ note, setNotes }) => {
     >
       <div className="card-body">
         <h3 className="card-title text-base-content">{note.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
+        <p className="whitespace-pre-line text-base-content/70 line-clamp-3">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">
             {formatDate(new Date(note.createdAt))}
