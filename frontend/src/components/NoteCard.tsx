@@ -1,11 +1,17 @@
 import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router";
-import { formatDate } from "../lib/utils";
-import api from "../lib/axios";
+import { formatDate } from "../lib/utils.ts";
+import api from "../lib/axios.ts";
 import toast from "react-hot-toast";
+import { Note } from "../types/note";
 
-const NoteCard = ({ note, setNotes }) => {
-  const handleDelete = async (e, id) => {
+interface NoteCardProps {
+  note: Note;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+}
+
+const NoteCard = ({ note, setNotes }: NoteCardProps) => {
+  const handleDelete = async (e: React.MouseEvent, id: string) => {
     e.preventDefault(); // get rid of the navigation behaviour
 
     if (!window.confirm("Are you sure you want to delete this note?")) return;

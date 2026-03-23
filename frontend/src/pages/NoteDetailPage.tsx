@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router'
-import NavBar from '../components/NavBar'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import NavBar from '../components/NavBar.tsx'
 import toast from 'react-hot-toast'
 import api from '../lib/axios'
 import { LoaderIcon, Trash2Icon } from 'lucide-react'
+import { Note, NoteResponse } from '../types/note'
 
 const NoteDetailPage = ({}) => {
-  const [note, setNote] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [note, setNote] = useState<Note | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const {id} = useParams();
@@ -15,15 +16,15 @@ const NoteDetailPage = ({}) => {
   useEffect(() => {
     const fetchNote = async () => {
       try{
-        const res = await api.get(`get-note/${id}`);
+        const res: { data: NoteResponse } = await api.get(`get-note/${id}`);
         console.log(res.data);
-        setNote(res.data);
+        setNote(res.data.data || null);
       } catch (e) {
         console.error("Error fetching notes: ", e);
-        if (e?.response?.status === 429) {
+        if ((e as any)?.response?.status === 429) {
           toast.error('Too many requests. Please try again later.')
         } else {
-          toast.error(e?.response?.data?.message || 'Unknown error fetching note')
+          toast.error((e as any)?.response?.data?.message || 'Unknown error fetching note')
         }
       }
     };
@@ -31,7 +32,7 @@ const NoteDetailPage = ({}) => {
     fetchNote();
   }, [])
 
-  const handleDelete = async (e, id) => {
+  const handleDelete = async (_e: React.MouseEvent, id: string) => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
@@ -44,8 +45,13 @@ const NoteDetailPage = ({}) => {
     }
   };
 
-  const handleSubmit = async (e, title, content) => {
+  const handleSubmit = async (e: React.FormEvent, title: string, content: string) => {
     e.preventDefault();
+
+    if (!note) {
+      toast.error('Note not found');
+      return;
+    }
 
     if (!title.trim() || !content.trim()) {
       toast.error('Please provide title and content for the note.');
@@ -71,10 +77,10 @@ const NoteDetailPage = ({}) => {
     } catch (error) {
       console.error('Update note error:', error)
 
-      if (error?.response?.status === 429) {
+      if ((error as any)?.response?.status === 429) {
         toast.error('Too many requests. Please try again later.')
       } else {
-        toast.error(error?.response?.data?.message || 'Unknown error updating note')
+        toast.error((error as any)?.response?.data?.message || 'Unknown error updating note')
       }
     } finally {
       setIsSubmitting(false)

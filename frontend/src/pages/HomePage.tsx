@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
-import RateLimitedUI from "../components/RateLimitedUI";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar.tsx';
+import RateLimitedUI from "../components/RateLimitedUI.tsx";
 import toast from "react-hot-toast";
-import NoteCard from '../components/NoteCard';
-import NotesNotFound from '../components/NotesNotFound';
+import NoteCard from '../components/NoteCard.tsx';
+import NotesNotFound from '../components/NotesNotFound.tsx';
 import api from '../lib/axios';
 import { LoaderIcon } from 'lucide-react';
+import { Note, NotesResponse } from '../types/note';
 
 const HomePage = () => {
   const [isRateLimited,setIsRateLimited] = useState(false);
-  const [notes,setNotes] = useState([]);
+  const [notes,setNotes] = useState<Note[]>([]);
   const [isLoading,setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try{
-        const res = await api.get("get-notes");
+        const res: { data: NotesResponse } = await api.get("get-notes");
         console.log(res.data);
-        setNotes(res.data);
+        setNotes(res.data.data || []);
         setIsRateLimited(false);
       } catch (e) {
         console.error("Error fetching notes: ", e);
-        if(e.response.status == 429){
+        if((e as any).response?.status == 429){
           setIsRateLimited(true);
         } else{
           console.error("Error while fetching notes: ", e);
